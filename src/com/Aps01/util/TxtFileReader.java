@@ -1,4 +1,4 @@
-package com.Aps01.datastructures;
+package com.Aps01.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -1,7 +1,7 @@
 package com.Aps01;
 
-import com.Aps01.datastructures.Matrix;
-import com.Aps01.datastructures.MatrixHandler;
+import com.Aps01.datastructures.LinkedList;
+import com.Aps01.util.MatrixHandler;
 
 import java.io.FileNotFoundException;
 
@@ -15,7 +15,7 @@ public class Main {
         //reading the matrix
         MatrixHandler matrixHandler = new MatrixHandler();
         try {
-            Matrix matrix = matrixHandler.readFile(filename);
+            LinkedList matrix = matrixHandler.readFile(filename);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

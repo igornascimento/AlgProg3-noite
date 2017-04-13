@@ -3,20 +3,20 @@ package com.Aps01.datastructures;
 import java.util.Iterator;
 
 /**
- * Matrix class
+ * LinkedList class
  */
-public class Matrix<T> implements Iterable<T> {
+public class LinkedList<T> implements Iterable<T> {
 
     /**
      * Iterator innerclass for the matrix
      */
-    public class MatrixIterator implements Iterator<T> {
+    public class ListIterator implements Iterator<T> {
         private Node<T> actual;
-        private Matrix<T> container;
+        private LinkedList<T> container;
 
-        public MatrixIterator(Matrix<T> matrix) {
+        public ListIterator(LinkedList<T> linkedList) {
             actual = null;
-            container = matrix;
+            container = linkedList;
         }
 
         public boolean hasNext() {
@@ -54,13 +54,12 @@ public class Matrix<T> implements Iterable<T> {
             }
         }
 
-        @Override
         public void insert(T value) {
             if (actual == null) {
                 throw new IllegalStateException(new String("Use next() before using an iterator."));
             }
             Node<T> node = new Node<>(value);
-            Node<T> previous = actual;
+            Node<T> previous = actual.getPrevious();
 
             node.setNext(actual);
             node.setPrevious(previous);
@@ -72,14 +71,38 @@ public class Matrix<T> implements Iterable<T> {
                 previous.setNext(node);
             }
         }
+
+        public void remove() {
+            if (container.head == container.tail) {
+                actual = container.tail = container.head = null;
+            } else if (actual == container.tail) {
+                actual = actual.getPrevious();
+                container.tail = actual;
+                actual.setNext(null);
+            } else if (actual == container.head) {
+                actual = actual.getNext();
+                actual.setPrevious(null);
+                container.head = actual;
+            } else {
+                Node<T> previous = actual.getPrevious();
+                Node<T> next = actual.getNext();
+                previous.setNext(next);
+                next.setPrevious(previous);
+            }
+        }
+
     }
 
 
     /**
-     * Matrix class definition
+     * LinkedList class definition
      */
     private Node<T> head;
     private Node<T> tail;
+
+    public java.util.Iterator<T> iterator() {
+        return new ListIterator(this);
+    }
 
     public void append(T value) {
         Node<T> node = new Node<>(value);
@@ -92,25 +115,8 @@ public class Matrix<T> implements Iterable<T> {
         tail = node;
     }
 
-    public java.util.Iterator<T> iterator() {
-        return new MatrixIterator(this);
-    }
-
-    public void addFirst(T value) {
-        Node<T> node = new Node<>(value);
-        Node<T> next = head;
-        if (next == null) {
-            tail = node;
-        } else {
-            node.setNext(next);
-        }
-        head = node;
-    }
-
     public boolean isEmpty() {
         return head == null;
     }
-
-
 
 }
