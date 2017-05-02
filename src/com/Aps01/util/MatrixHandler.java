@@ -12,7 +12,7 @@ public class MatrixHandler {
     /**
      * Stores the matrix as a bi-dimensional LinkedList
      */
-    private LinkedList matrix;
+    private LinkedList matrix = new LinkedList();
 
 
     /**
